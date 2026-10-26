@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <header>
+<h1>Tienda de Tecnologia</h1>
+<div class="cart-sumary-badge" id="cart-badge">0 unidades</div>
+</header>
+
+<main>
+    <div id="status-container"></div>
+    <section class="filters-section">
+    <input type="text" id="search-input" placeholder="buscar por nombre o descripcion">
+    <select id="category select">
+        <option value="">todas las categorias</option>
+    </select>
+    <label>
+        <input type="checkbox" id="only-available-chek">
+        solo dispononibles:
+    </label>
+    <select id="sort-select">
+    <option value="">ordenar por precio</option>
+    <option value="">Precio menor a mayor</option>
+    <option value="">Precio mayor a menor</option>
+    </select>
+
+    <button id="clear-filters-btn" class="btn-secondary">limpiar filtros</button>
+    </section>
+    
+    <section class="layout-grid"> 
+        
+        <section>
+            <product-list></product-list>
+        </section>
+
+        <aside>
+            <shopping-card></shopping-card>
+        </aside>
+        </section>     
+</main>
+    <script src="/product-card.js"></script>
+    <script src="/product-list.js"></script>
+    <script src="/shopping-card.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/card.js"></script>
+    <script src="/js/storage.js"></script>
+    
+  
+
+</body>
+</html>
