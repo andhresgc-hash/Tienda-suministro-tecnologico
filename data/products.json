@@ -1,9 +1,110 @@
-{
-  "id": 101,
-  "name": "Teclado mecánico",
-  "category": "Perifericos",
-  "price": 189900,
-  "stock": 8,
-  "description": "Teclado USB para uso diario",
-  "active": true
-}
+[
+  {
+    "id": 101,
+    "name": "Teclado para computador",
+    "category": "Perifericos",
+    "price": 189900,
+    "stock": 8,
+    "description": "Teclado USB para uso diario",
+    "active": true
+  },
+  {
+    "id": 102,
+    "name": "Mouse",
+    "category": "Perifericos",
+    "price": 79900,
+    "stock": 15,
+    "description": "Mouse óptico inalámbrico con receptor USB",
+    "active": true
+  },
+  {
+    "id": 103,
+    "name": "Monitor",
+    "category": "Pantallas",
+    "price": 649900,
+    "stock": 6,
+    "description": "Monitor Full HD para trabajo y estudio",
+    "active": true
+  },
+  {
+    "id": 104,
+    "name": "Audífonos",
+    "category": "Audio",
+    "price": 129900,
+    "stock": 12,
+    "description": "Audífonos cómodos con conexión USB",
+    "active": true
+  },
+  {
+    "id": 105,
+    "name": "Memoria USB",
+    "category": "Almacenamiento",
+    "price": 39900,
+    "stock": 25,
+    "description": "Unidad USB 3.0 para guardar y transportar archivos",
+    "active": true
+  },
+  {
+    "id": 106,
+    "name": "Disco duro",
+    "category": "Almacenamiento",
+    "price": 219900,
+    "stock": 9,
+    "description": "Almacenamiento para guardar archivos y programas",
+    "active": true
+  },
+  {
+    "id": 107,
+    "name": "Memoria RAM",
+    "category": "Componentes",
+    "price": 159900,
+    "stock": 10,
+    "description": "Módulo de memoria para computador de escritorio",
+    "active": true
+  },
+  {
+    "id": 108,
+    "name": "Cámara web",
+    "category": "Perifericos",
+    "price": 149900,
+    "stock": 7,
+    "description": "Cámara USB para videollamadas y clases virtuales",
+    "active": true
+  },
+  {
+    "id": 109,
+    "name": "Parlantes",
+    "category": "Audio",
+    "price": 89900,
+    "stock": 11,
+    "description": "Par de parlantes compactos para computador",
+    "active": true
+  },
+  {
+    "id": 110,
+    "name": "Cable HDMI",
+    "category": "Accesorios",
+    "price": 29900,
+    "stock": 20,
+    "description": "Cable HDMI para conectar pantallas y computadores",
+    "active": true
+  },
+  {
+    "id": 111,
+    "name": "Base para portátil",
+    "category": "Accesorios",
+    "price": 119900,
+    "stock": 5,
+    "description": "Soporte para colocar y ventilar el computador portátil",
+    "active": true
+  },
+  {
+    "id": 112,
+    "name": "Adaptador USB-C",
+    "category": "Accesorios",
+    "price": 99900,
+    "stock": 8,
+    "description": "Adaptador con puertos USB y salida HDMI",
+    "active": true
+  }
+]
