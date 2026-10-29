@@ -94,7 +94,7 @@ product-card {
 }
 
 product-card > article,
-shopping-card {
+shopping-cart {
   padding: 18px;
   background: white;
   border: 1px solid #dce3ec;
@@ -103,25 +103,25 @@ shopping-card {
 }
 
 product-card h3,
-shopping-card h3 {
+shopping-cart h3 {
   color: #174a78;
 }
 
-shopping-card {
+shopping-cart {
   display: block;
 }
 
-shopping-card > h2 {
+shopping-cart > h2 {
   margin-top: 0;
   color: #174a78;
 }
 
-shopping-card article {
+shopping-cart article {
   padding: 12px 0;
   border-bottom: 1px solid #e5eaf0;
 }
 
-shopping-card [aria-label="Resumen del carrito"] button {
+shopping-cart [aria-label="Resumen del carrito"] button {
   margin: 4px;
 }
 

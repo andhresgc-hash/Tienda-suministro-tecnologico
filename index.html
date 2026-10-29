@@ -14,20 +14,23 @@
 </header>
 
 <main>
-    <div id="status-container"></div>
+    <div id="status-container" role="status" aria-live="polite"></div>
     <section class="filters-section">
-    <input type="text" id="search-input" placeholder="buscar por nombre o descripcion">
-    <select id="category select">
+    <label for="search-input">Buscar productos</label>
+    <input type="text" id="search-input" placeholder="Nombre o descripción">
+    <label for="category-select">Categoría</label>
+    <select id="category-select">
         <option value="">todas las categorias</option>
     </select>
     <label>
-        <input type="checkbox" id="only-available-chek">
-        solo dispononibles:
+        <input type="checkbox" id="only-available">
+        Solo disponibles
     </label>
+    <label for="sort-select">Ordenar por precio</label>
     <select id="sort-select">
-    <option value="">ordenar por precio</option>
-    <option value="">Precio menor a mayor</option>
-    <option value="">Precio mayor a menor</option>
+    <option value="">Sin ordenar</option>
+    <option value="asc">Precio: menor a mayor</option>
+    <option value="desc">Precio: mayor a menor</option>
     </select>
 
     <button id="clear-filters-btn" class="btn-secondary">limpiar filtros</button>
@@ -40,7 +43,7 @@
         </section>
 
         <aside>
-            <shopping-card></shopping-card>
+            <shopping-cart></shopping-cart>
         </aside>
         </section>     
 </main>

@@ -37,7 +37,8 @@ export function loadCartFromStorage(catalog) {
         typeof item.id !== "number" ||
         typeof item.quantity !== "number" ||
         !Number.isFinite(item.quantity) ||
-        item.quantity <= 0
+        !Number.isInteger(item.quantity) ||
+        item.quantity < 1
       ) {
         return cart;
       }
@@ -55,6 +56,6 @@ export function loadCartFromStorage(catalog) {
     }, []);
   } catch (error) {
     console.error("Error al cargar el carrito desde localStorage:", error);
-    throw error;
+    return [];
   }
 }

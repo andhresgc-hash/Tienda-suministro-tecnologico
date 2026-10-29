@@ -5,7 +5,6 @@ class ShoppingCard extends HTMLElement {
   constructor() {
     super();
     this._items = [];
-    this.style.display = "block";
   }
 
   set items(items) {
@@ -28,78 +27,77 @@ class ShoppingCard extends HTMLElement {
     heading.textContent = "Carrito de compras";
     this.append(heading);
 
-    if (this._items.length === 0) {
-      const emptyMessage = document.createElement("p");
-      emptyMessage.textContent = "Tu carrito está vacío.";
-      this.append(emptyMessage);
-      return;
-    }
-
     const lines = document.createElement("div");
     let units = 0;
     let subtotal = 0;
 
-    this._items.forEach((item) => {
-      const lineSubtotal = item.price * item.quantity;
-      units += item.quantity;
-      subtotal += lineSubtotal;
+    if (this._items.length === 0) {
+      const emptyMessage = document.createElement("p");
+      emptyMessage.textContent = "Tu carrito está vacío.";
+      lines.append(emptyMessage);
+    } else {
+      this._items.forEach((item) => {
+        const lineSubtotal = item.price * item.quantity;
+        units += item.quantity;
+        subtotal += lineSubtotal;
 
-      const line = document.createElement("article");
-      line.style.cssText =
-        "padding:0.75rem 0; border-bottom:1px solid #d1d5db;";
+        const line = document.createElement("article");
+        line.style.cssText =
+          "padding:0.75rem 0; border-bottom:1px solid #d1d5db;";
 
-      const name = document.createElement("h3");
-      name.textContent = item.name;
+        const name = document.createElement("h3");
+        name.textContent = item.name;
 
-      const price = document.createElement("p");
-      price.textContent = `${this.formatCurrency(item.price)} c/u`;
+        const price = document.createElement("p");
+        price.textContent = `${this.formatCurrency(item.price)} c/u`;
 
-      const controls = document.createElement("div");
-      controls.style.cssText = "display:flex; align-items:center; gap:0.5rem;";
+        const controls = document.createElement("div");
+        controls.style.cssText = "display:flex; align-items:center; gap:0.5rem;";
 
-      const decreaseButton = document.createElement("button");
-      decreaseButton.type = "button";
-      decreaseButton.textContent = "-";
-      decreaseButton.setAttribute("aria-label", `Disminuir cantidad de ${item.name}`);
-      decreaseButton.disabled = item.quantity <= 1;
-      decreaseButton.addEventListener("click", () => {
-        this.dispatchCartEvent("cart-quantity-change", {
-          productId: item.id,
-          quantity: item.quantity - 1,
+        const decreaseButton = document.createElement("button");
+        decreaseButton.type = "button";
+        decreaseButton.textContent = "-";
+        decreaseButton.setAttribute("aria-label", `Disminuir cantidad de ${item.name}`);
+        decreaseButton.disabled = item.quantity <= 1;
+        decreaseButton.addEventListener("click", () => {
+          this.dispatchCartEvent("cart-quantity-change", {
+            productId: item.id,
+            quantity: item.quantity - 1,
+          });
         });
-      });
 
-      const quantity = document.createElement("span");
-      quantity.textContent = String(item.quantity);
-      quantity.setAttribute("aria-label", "Cantidad");
+        const quantity = document.createElement("span");
+        quantity.textContent = String(item.quantity);
+        quantity.setAttribute("aria-label", "Cantidad");
 
-      const increaseButton = document.createElement("button");
-      increaseButton.type = "button";
-      increaseButton.textContent = "+";
-      increaseButton.setAttribute("aria-label", `Aumentar cantidad de ${item.name}`);
-      increaseButton.disabled = item.quantity >= item.stock;
-      increaseButton.addEventListener("click", () => {
-        this.dispatchCartEvent("cart-quantity-change", {
-          productId: item.id,
-          quantity: item.quantity + 1,
+        const increaseButton = document.createElement("button");
+        increaseButton.type = "button";
+        increaseButton.textContent = "+";
+        increaseButton.setAttribute("aria-label", `Aumentar cantidad de ${item.name}`);
+        increaseButton.disabled = item.quantity >= item.stock;
+        increaseButton.addEventListener("click", () => {
+          this.dispatchCartEvent("cart-quantity-change", {
+            productId: item.id,
+            quantity: item.quantity + 1,
+          });
         });
+
+        const removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.textContent = "Eliminar";
+        removeButton.addEventListener("click", () => {
+          this.dispatchCartEvent("cart-remove", { productId: item.id });
+        });
+
+        controls.append(decreaseButton, quantity, increaseButton, removeButton);
+
+        const lineTotal = document.createElement("p");
+        lineTotal.textContent = `Subtotal: ${this.formatCurrency(lineSubtotal)}`;
+
+        line.append(name, price, controls, lineTotal);
+        lines.append(line);
       });
-
-      const removeButton = document.createElement("button");
-      removeButton.type = "button";
-      removeButton.textContent = "Eliminar";
-      removeButton.addEventListener("click", () => {
-        this.dispatchCartEvent("cart-remove", { productId: item.id });
-      });
-
-      controls.append(decreaseButton, quantity, increaseButton, removeButton);
-
-      const lineTotal = document.createElement("p");
-      lineTotal.textContent = `Subtotal: ${this.formatCurrency(lineSubtotal)}`;
-
-      line.append(name, price, controls, lineTotal);
-      lines.append(line);
-    });
+    }
 
     const discount = subtotal >= DISCOUNT_THRESHOLD ? subtotal * DISCOUNT_RATE : 0;
     const total = subtotal - discount;
@@ -118,36 +116,34 @@ class ShoppingCard extends HTMLElement {
     const totalText = document.createElement("p");
     totalText.textContent = `Total: ${this.formatCurrency(total)}`;
 
-    const clearButton = document.createElement("button");
-    clearButton.type = "button";
-    clearButton.textContent = "Vaciar carrito";
-    clearButton.addEventListener("click", () => {
-      this.dispatchCartEvent("cart-clear", {});
-    });
+    summary.append(unitsText, subtotalText, discountText, totalText);
 
-    const confirmButton = document.createElement("button");
-    confirmButton.type = "button";
-    confirmButton.textContent = "Confirmar pedido";
-    confirmButton.addEventListener("click", () => {
-      this.dispatchCartEvent("order-confirm", {
-        lines: this._items.map((item) => ({
-          productId: item.id,
-          quantity: item.quantity,
-        })),
-        subtotal,
-        discount,
-        total,
+    if (this._items.length > 0) {
+      const clearButton = document.createElement("button");
+      clearButton.type = "button";
+      clearButton.textContent = "Vaciar carrito";
+      clearButton.addEventListener("click", () => {
+        this.dispatchCartEvent("cart-clear", {});
       });
-    });
 
-    summary.append(
-      unitsText,
-      subtotalText,
-      discountText,
-      totalText,
-      clearButton,
-      confirmButton
-    );
+      const confirmButton = document.createElement("button");
+      confirmButton.type = "button";
+      confirmButton.textContent = "Confirmar pedido";
+      confirmButton.addEventListener("click", () => {
+        this.dispatchCartEvent("order-confirm", {
+          lines: this._items.map((item) => ({
+            productId: item.id,
+            quantity: item.quantity,
+          })),
+          subtotal,
+          discount,
+          total,
+        });
+      });
+
+      summary.append(clearButton, confirmButton);
+    }
+
     this.append(lines, summary);
   }
 
@@ -170,6 +166,6 @@ class ShoppingCard extends HTMLElement {
   }
 }
 
-if (!customElements.get("shopping-card")) {
-  customElements.define("shopping-card", ShoppingCard);
+if (!customElements.get("shopping-cart")) {
+  customElements.define("shopping-cart", ShoppingCard);
 }

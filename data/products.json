@@ -76,9 +76,9 @@
     "name": "Parlantes",
     "category": "Audio",
     "price": 89900,
-    "stock": 11,
+    "stock": 0,
     "description": "Par de parlantes compactos para computador",
-    "active": true
+    "active": false
   },
   {
     "id": 110,

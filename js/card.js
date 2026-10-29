@@ -137,7 +137,7 @@ export function createOrder(cart, catalog) {
   }
 
   return {
-    id: `TS-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    id: "",
     ...summary,
   };
 }
