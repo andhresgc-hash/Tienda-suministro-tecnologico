@@ -4,9 +4,6 @@ class ProductList extends HTMLElement {
   constructor() {
     super();
     this._products = [];
-    this.style.display = "grid";
-    this.style.gridTemplateColumns = "repeat(auto-fit, minmax(220px, 1fr))";
-    this.style.gap = "1rem";
   }
 
   set products(products) {

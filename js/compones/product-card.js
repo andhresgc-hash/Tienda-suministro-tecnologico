@@ -2,7 +2,6 @@ class ProductCard extends HTMLElement {
   constructor() {
     super();
     this._product = null;
-    this.style.display = "block";
   }
 
   set product(product) {
