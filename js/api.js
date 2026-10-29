@@ -1,33 +1,35 @@
-export async function fecthProducts(){
-    try{
-        const response = await fetch('./data/products.json')
-        if(!response.ok){
-            throw new Error('Error HPT: $(response.status)');
-        }
-        const data = await response.json();
-        if (!Array.isArray(data)){
-            throw new Error("Formato de Datos invalidos");
+export async function fetchProducts() {
+  const response = await fetch("./data/products.json");
 
-        }
+  if (!response.ok) {
+    throw new Error(`Error al cargar productos: ${response.status} ${response.statusText}`);
+  }
 
-    const validProducts = data.filter(
-    (Product) =>
-        Product &&
-        typeof Product.id  == 'number' &&
-        typeof Product.name == 'strig' &&
-        typeof Product.price == 'number' &&
-        Product.price >= 0 &&
-        typeof Product.stock == 'number' &&
-        Product.stock >= 0 &&
-        typeof Product.active == 'bolean'
-    );
-    
+  const products = await response.json();
 
-    return validProducts;
-    } catch(error){
-    console.error('Error al cargar el catalogo', error);
-    throw error;
-    }
+  if (!Array.isArray(products)) {
+    throw new Error("El catálogo debe ser un arreglo de productos.");
+  }
+
+  const invalidProduct = products.find(
+    (product) =>
+      !product ||
+      typeof product.id !== "number" ||
+      typeof product.name !== "string" ||
+      typeof product.category !== "string" ||
+      typeof product.price !== "number" ||
+      !Number.isFinite(product.price) ||
+      product.price < 0 ||
+      typeof product.stock !== "number" ||
+      !Number.isFinite(product.stock) ||
+      product.stock < 0 ||
+      typeof product.description !== "string" ||
+      typeof product.active !== "boolean"
+  );
+
+  if (invalidProduct) {
+    throw new Error("Hay un producto con datos inválidos en el catálogo.");
+  }
+
+  return products;
 }
-
-
